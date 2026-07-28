@@ -4493,3 +4493,113 @@ required:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorBody'
+  /api/referrals:
+    post:
+      operationId: createReferral
+      tags:
+        - Referrals
+      summary: Create a referral code
+      description: Creates a new referral code for the authenticated user.
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                campaignId:
+                  type: string
+            examples:
+              success:
+                summary: Create referral request
+                value:
+                  campaignId: FWC26
+      responses:
+        '201':
+          description: Referral created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      referralCode:
+                        type: string
+                      message:
+                        type: string
+                    required:
+                      - referralCode
+                      - message
+                required:
+                  - data
+              examples:
+                success:
+                  summary: Referral code created successfully
+                  value:
+                    data:
+                      referralCode: REF-ABC-123
+                      message: Referral created successfully
+        '401':
+          description: Missing or invalid JWT
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorBody'
+    get:
+      operationId: listReferrals
+      tags:
+        - Referrals
+      summary: List user referrals
+      description: Lists all referrals made by the authenticated user.
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of referrals
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        referredUser:
+                          type: string
+                        status:
+                          type: string
+                          enum:
+                            - pending
+                            - completed
+                        createdAt:
+                          type: string
+                          format: date-time
+                      required:
+                        - id
+                        - referredUser
+                        - status
+                        - createdAt
+                required:
+                  - data
+              examples:
+                success:
+                  summary: Referral list
+                  value:
+                    data:
+                      - id: ref-001
+                        referredUser: GD2...
+                        status: completed
+                        createdAt: 2026-07-28T12:00:00Z
+        '401':
+          description: Missing or invalid JWT
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorBody'
