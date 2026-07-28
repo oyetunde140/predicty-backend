@@ -2,14 +2,12 @@ node_modules
 dist
 coverage
 *.log
-.env
-.env.*
 !.env.example
 .DS_Store
 .idea
-.vscode
 *.tsbuildinfo
 tests/integration/.container-info.json
 .agents/
 issue.md
 skills-lock.json
+config.bat

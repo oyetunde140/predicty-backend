@@ -1,0 +1,21 @@
+{
+  "default_branch": "main",
+  "branches": [
+    "fix/alerts-schema-stability",
+    "fix/predictions-health-probe",
+    "main",
+    "origin"
+  ],
+  "parent": {
+    "fix/alerts-schema-stability": "main",
+    "fix/predictions-health-probe": "main",
+    "main": null,
+    "origin": "main"
+  },
+  "order": [
+    "main",
+    "fix/alerts-schema-stability",
+    "fix/predictions-health-probe",
+    "origin"
+  ]
+}
